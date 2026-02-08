@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Will U Be My Valentine 💖</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      height: 100vh;
+      background: url('background.jpg') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      overflow: hidden;
+    }
+    .overlay {
+      background: rgba(0,0,0,0.45);
+      padding: 24px 28px 28px;
+      border-radius: 20px;
+      text-align: center;
+      color: #fff;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+    }
+    h1 {
+      margin: 0 0 16px;
+      font-size: 2rem;
+      letter-spacing: 0.5px;
+    }
+    .buttons {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 12px 22px;
+      font-size: 1rem;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ff4d6d, #ff8fa3);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      transition: transform .1s ease, box-shadow .1s ease;
+    }
+    button:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.35); }
+    .heart {
+      position: fixed;
+      width: 14px;
+      height: 14px;
+      background: red;
+      transform: rotate(45deg);
+      animation: floatUp 1.6s ease-out forwards;
+      pointer-events: none;
+      opacity: 0.9;
+    }
+    .heart::before, .heart::after {
+      content: '';
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: red;
+      border-radius: 50%;
+    }
+    .heart::before { left: -7px; top: 0; }
+    .heart::after { top: -7px; left: 0; }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(45deg) scale(1); opacity: 1; }
+      100% { transform: translateY(-160px) rotate(45deg) scale(1.4); opacity: 0; }
+    }
+
+    .note {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <h1>Will U be My Valentine 💖</h1>
+    <div class="buttons">
+      <button id="yesBtn">Yes</button>
+      <button id="iwillBtn">I will</button>
+    </div>
+    <div class="note">Tap the buttons for hearts ✨</div>
+  </div>
+
+  <!-- Audio placeholder (add your own MP3 file named song.mp3 in this folder) -->
+  <audio id="bgm" autoplay loop>
+    <source src="song.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // Popup on load
+    window.addEventListener('load', () => {
+      alert('No option is not available 😅');
+    });
+
+    const makeHearts = (x, y) => {
+      for (let i = 0; i < 12; i++) {
+        const h = document.createElement('div');
+        h.className = 'heart';
+        h.style.left = (x + (Math.random()*40 - 20)) + 'px';
+        h.style.top = (y + (Math.random()*20 - 10)) + 'px';
+        h.style.background = ['#ff4d6d','#ff8fa3','#ffb3c1'][Math.floor(Math.random()*3)];
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 1600);
+      }
+    };
+
+    const clickHearts = (e) => {
+      const rect = e.target.getBoundingClientRect();
+      const x = rect.left + rect.width/2;
+      const y = rect.top;
+      makeHearts(x, y);
+    };
+
+    document.getElementById('yesBtn').addEventListener('click', clickHearts);
+    document.getElementById('iwillBtn').addEventListener('click', clickHearts);
+  </script>
+</body>
+</html>
